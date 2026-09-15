@@ -2,6 +2,9 @@ const express = require("express");
 const app = express();
 // use json middleware
 app.use(express.json());
+// using cors
+const cors = require("cors");
+app.use(cors());
 
 // middleware method creation
 const requestLogger = (req, res, next) => {
@@ -51,11 +54,11 @@ app.get("/", (req, res) => {
   res.send("hello server. Node.js. BCA");
 });
 
-app.get("/movies", (req, res) => {
+app.get("/api/movies", (req, res) => {
   res.json(movies);
 });
 
-app.get("/movies/:id", (req, res) => {
+app.get("/api/movies/:id", (req, res) => {
   const id = req.params.id;
   const movie = movies.find((m) => m.id == id);
   if (!movie) {
@@ -65,7 +68,7 @@ app.get("/movies/:id", (req, res) => {
   }
 });
 
-app.delete("/movies/:id", (req, res) => {
+app.delete("/api/movies/:id", (req, res) => {
   const id = req.params.id;
   const movie = movies.find((m) => m.id == id);
   if (!movie) {
@@ -81,7 +84,7 @@ app.delete("/movies/:id", (req, res) => {
   // return a deleted message.
 });
 
-app.post("/movies", (req, res) => {
+app.post("/api/movies", (req, res) => {
   if (req.body.title == null || req.body.title == "") {
     res.status(400).json({ message: "Title Required." });
   }

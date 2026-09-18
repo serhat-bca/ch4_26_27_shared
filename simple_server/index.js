@@ -2,9 +2,11 @@ const express = require("express");
 const app = express();
 // use json middleware
 app.use(express.json());
+
 // using cors
 const cors = require("cors");
 app.use(cors());
+app.use(express.static("dist"));
 
 // middleware method creation
 const requestLogger = (req, res, next) => {
